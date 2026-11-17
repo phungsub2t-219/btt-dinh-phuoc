@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cẩm Nang Prompt & Skill Ban Truyền Thông - Chùa Định Phước Di Đà</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #176B55;
+      --primary-hover: #115241;
+      --primary-light: #E6F4EA;
+      --secondary: #D97706;
+      --secondary-light: #FEF3C7;
+      --accent: #258564;
+      --dark: #1E293B;
+      --text: #334155;
+      --text-bold: #0F172A;
+      --muted: #64748B;
+      --bg: #F8FAFC;
+      --card-bg: #FFFFFF;
+      --border: #CBD5E1;
+      --border-light: #E2E8F0;
+      --danger-bg: #FEF2F2;
+      --danger-border: #FCA5A5;
+      --danger-text: #B91C1C;
+      --success-bg: #F0FDF4;
+      --success-border: #86EFAC;
+      --success-text: #15803D;
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+      --shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 16px;
+      padding-bottom: 90px;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, #176B55 0%, #1F8A6C 100%);
+      color: white;
+      padding: 40px 20px 32px;
+      text-align: center;
+      border-bottom-left-radius: 32px;
+      border-bottom-right-radius: 32px;
+      box-shadow: 0 10px 30px rgba(23, 107, 85, 0.22);
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.22);
+      backdrop-filter: blur(10px);
+      padding: 8px 18px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 14px;
+      letter-spacing: 0.5px;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 800;
+      line-height: 1.35;
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 22px; }
+      body { font-size: 15px; }
+    }
+
+    header p {
+      font-size: 16px;
+      opacity: 0.95;
+      font-weight: 500;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Container */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 18px;
+    }
+
+    /* Note Card */
+    .note-card {
+      margin-top: -20px;
+      background: #FFFFFF;
+      border-radius: var(--radius);
+      padding: 22px 24px;
+      box-shadow: var(--shadow);
+      border-left: 6px solid var(--secondary);
+      border-top: 1px solid var(--border-light);
+      border-right: 1px solid var(--border-light);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .note-card h4 {
+      color: var(--secondary);
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .note-card p {
+      color: #475569;
+      font-size: 15px;
+      font-style: italic;
+      line-height: 1.65;
+    }
+
+    /* Quick Info Bar */
+    .info-bar {
+      margin-top: 16px;
+      background: white;
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      border: 1px solid var(--border-light);
+    }
+
+    .info-item {
+      flex: 1;
+      min-width: 240px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 15px;
+    }
+
+    .info-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--primary-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    /* Tabs Navigation */
+    .tabs-nav {
+      display: flex;
+      gap: 10px;
+      margin: 28px 0 20px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      scrollbar-width: none;
+    }
+    .tabs-nav::-webkit-scrollbar { display: none; }
+
+    .tab-btn {
+      background: white;
+      border: 1.5px solid var(--border);
+      padding: 12px 22px;
+      border-radius: 40px;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--muted);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+    }
+
+    .tab-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .tab-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+      box-shadow: 0 6px 18px rgba(23, 107, 85, 0.3);
+    }
+
+    /* Content Cards */
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.25s ease-out;
+    }
+    .tab-content.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+      border: 1px solid var(--border-light);
+    }
+
+    @media (max-width: 600px) {
+      .card { padding: 20px 16px; }
+    }
+
+    .card-title {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .card-title .icon {
+      font-size: 30px;
+      line-height: 1;
+    }
+
+    .card-title h3 {
+      font-size: 21px;
+      font-weight: 800;
+      color: var(--text-bold);
+      line-height: 1.3;
+    }
+
+    .card-title p {
+      font-size: 14px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* Prompt Box - High Contrast & Large Text */
+    .prompt-box {
+      background: #0F172A;
+      border-radius: 16px;
+      position: relative;
+      margin: 18px 0 24px;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.15);
+    }
+
+    .prompt-header {
+      background: #1E293B;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #334155;
+    }
+
+    .prompt-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: #94A3B8;
+      text-transform: uppercase;
+      letter-spacing: 0.75px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .copy-btn {
+      background: #10B981;
+      color: white;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+    }
+
+    .copy-btn:hover { background: #059669; }
+    .copy-btn:active { transform: scale(0.96); }
+
+    .prompt-content {
+      padding: 20px 22px;
+      font-family: 'JetBrains Mono', 'Consolas', monospace;
+      font-size: 14.5px;
+      color: #F1F5F9;
+      white-space: pre-wrap;
+      word-break: break-word;
+      max-height: 420px;
+      overflow-y: auto;
+      line-height: 1.65;
+    }
+
+    /* Rules Grid */
+    .rules-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin: 16px 0;
+    }
+    @media(max-width: 650px) { .rules-grid { grid-template-columns: 1fr; } }
+
+    .rule-card {
+      padding: 18px;
+      border-radius: 14px;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    .rule-card.forbidden {
+      background: var(--danger-bg);
+      border: 1.5px solid var(--danger-border);
+      color: var(--danger-text);
+    }
+    .rule-card.allowed {
+      background: var(--success-bg);
+      border: 1.5px solid var(--success-border);
+      color: var(--success-text);
+    }
+
+    .rule-card h4 {
+      font-size: 15px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Step Badge */
+    .step-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--primary-light);
+      color: var(--primary);
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 13.5px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    /* Venue Cards */
+    .venue-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 16px;
+    }
+    @media(max-width: 700px) { .venue-grid { grid-template-columns: 1fr; } }
+
+    .venue-box {
+      border: 1.5px solid var(--border-light);
+      border-radius: 16px;
+      padding: 20px;
+      background: #FAFCFE;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .venue-box h4 {
+      color: var(--primary);
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .venue-box p {
+      font-size: 15px;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .venue-box .contacts {
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--text-bold);
+      background: white;
+      padding: 12px 14px;
+      border-radius: 10px;
+      margin-top: 12px;
+      border: 1px dashed var(--border);
+      line-height: 1.7;
+    }
+
+    .venue-box .contacts a {
+      color: var(--primary);
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .venue-box .contacts a:hover { text-decoration: underline; }
+
+    /* Output Sample Box */
+    details {
+      background: #F8FAFC;
+      border-radius: 14px;
+      padding: 16px 18px;
+      margin: 16px 0;
+      border: 1.5px solid var(--border-light);
+    }
+    summary {
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      color: var(--primary);
+      user-select: none;
+    }
+    details[open] summary {
+      margin-bottom: 14px;
+    }
+
+    .sample-text {
+      background: white;
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      padding: 18px;
+      font-size: 15px;
+      line-height: 1.7;
+      white-space: pre-wrap;
+    }
+
+    /* Toast Notification */
+    #toast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(120px);
+      background: #0F172A;
+      color: #FFFFFF;
+      padding: 14px 28px;
+      border-radius: 40px;
+      font-size: 15px;
+      font-weight: 700;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid #334155;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="badge">🌸 CHÙA ĐỊNH PHƯỚC DI ĐÀ</div>
+    <h1>Cẩm Nang Skill & Prompt Ban Truyền Thông</h1>
+    <p>Hệ thống câu lệnh AI chuẩn hóa cho Huynh Đệ Khu Đông</p>
+  </header>
+
+  <div class="container">
+    <!-- Lời ngỏ chân thành của HĐ -->
+    <div class="note-card">
+      <h4>🌱 Lời Ngỏ Gửi Huynh Đệ</h4>
+      <p>
+        "Đây chỉ là những gì con đúc kết từ quá trình tự tìm hiểu. Muốn chia sẻ cho HĐ mới chưa biết cách làm hay còn gặp khó khăn khi viết bài truyền thông, Poster. Đây Không phải là cách làm duy nhất hay một khuôn mẫu cố định. Mong mỗi HĐ sẽ tiết kiệm được thời gian hơn, để cống hiến phụng sự nhiều hơn. Gieo duyên mọi người biết đến Chánh Pháp."
+      </p>
+    </div>
+
+    <!-- Quick Info -->
+    <div class="info-bar">
+      <div class="info-item">
+        <div class="info-icon">⏰</div>
+        <div>
+          <strong style="color: var(--text-bold);">Khung giờ sinh hoạt:</strong><br>
+          18h30 – 21h30 Thứ Năm hàng tuần
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">📍</div>
+        <div>
+          <strong style="color: var(--text-bold);">Địa giới hành chính mới:</strong><br>
+          Phường Đông Hòa, TP. Hồ Chí Minh
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="tabs-nav">
+      <button class="tab-btn active" onclick="switchTab('tab-poster')">🎨 1. Thiết Kế Poster</button>
+      <button class="tab-btn" onclick="switchTab('tab-thumoi')">📜 2. Thư Mời Sinh Hoạt</button>
+      <button class="tab-btn" onclick="switchTab('tab-tongket')">🌿 3. Tổng Kết (Recap)</button>
+      <button class="tab-btn" onclick="switchTab('tab-diadiem')">📍 4. Địa Chỉ & Hotline</button>
+    </div>
+
+    <!-- TAB 1: POSTER -->
+    <div id="tab-poster" class="tab-content active">
+      <div class="card">
+        <div class="card-title">
+          <div class="icon">🎨</div>
+          <div>
+            <h3>[SKILL-DES-01] Master Skill: Thiết Kế Poster Sinh Hoạt</h3>
+            <p>Tỷ lệ 9:16 (1080×1920px) | Tranh 2D & Màu nước | Gần gũi, trang trọng, ấm áp</p>
+          </div>
+        </div>
+
+        <div class="rules-grid">
+          <div class="rule-card forbidden">
+            <h4>❌ QUY TẮC AN TOÀN TUYỆT ĐỐI</h4>
+            • <b>Hạn chế dùng hình ảnh Đức Phật hoặc Bồ Tát</b> trên poster thư mời thông thường.<br>
+            • <b>TUYỆT ĐỐI KHÔNG để chữ đè lên hình ảnh Đức Phật, Bồ Tát.</b><br>
+            • Tránh ảnh 3D AI da bóng nhựa, đơ cứng.<br>
+            • Nam nữ trưởng thành giữ khoảng cách trang nghiêm.
+          </div>
+          <div class="rule-card allowed">
+            <h4>✅ NÊN SỬ DỤNG</h4>
+            • Hoa sen, mái chùa cong, vạt nắng sớm, tán cây xanh, trang sách mở.<br>
+            • Tranh vẽ 2D, phong cách truyện tranh minh họa, watercolor, gouache.<br>
+            • Tông màu: Xanh da trời sáng, Trắng kem, Hồng pastel, Vàng nắng ấm, Xanh lá.<br>
+            • Bố cục thoáng, chữ to rõ dễ đọc trên điện thoại.
+          </div>
+        </div>
+
+        <div class="step-badge">👉 BƯỚC 1: COPY MASTER SKILL NÀY GỬI CHO AI TRƯỚC</div>
+
+        <div class="prompt-box">
+          <div class="prompt-header">
+            <span class="prompt-label">Master Skill Thiết Kế Poster</span>
+            <button class="copy-btn" onclick="copyText('prompt-poster-master')">📋 Sao chép</button>
+          </div>
+          <div id="prompt-poster-master" class="prompt-content"># MASTER SKILL – THIẾT KẾ POSTER THƯ MỜI SINH HOẠT KHU ĐÔNG
+
+## 1. VAI TRÒ
+Bạn là Creative Director kiêm Graphic Designer chuyên nghiệp, có kinh nghiệm thiết kế poster truyền thông cho các hoạt động sinh hoạt Phật giáo và cộng đồng thanh niên.
+
+Nhiệm vụ: Thiết kế mô tả chi tiết / layout poster thư mời sinh hoạt Khu Đông có tính thẩm mỹ cao, truyền tải rõ thông tin, tạo cảm giác gần gũi, ấm áp và khuyến khích mọi người cùng tham gia tu tập.
+
+## 2. ĐỊNH HƯỚNG THIẾT KẾ
+- Kích thước mặc định: 9:16 (1080 × 1920 px) tối ưu xem trên Smartphone / Story / Banner Zalo & Facebook.
+- Phong cách chủ đạo: Kết hợp cảm xúc, tươi sáng và nghệ thuật.
+- Cảm giác: Trang trọng, nền nã, trẻ trung, sáng tạo, gần gũi.
+- Hình minh họa ưu tiên: Tranh vẽ tay 2D, phong cách truyện tranh minh họa, watercolor (màu nước) hoặc gouache.
+- Hạn chế: Tránh cảm giác ảnh 3D giả lập AI, da người bóng nhựa, khuôn mặt đơ cứng thiếu tự nhiên.
+- Bố cục: Thoáng đãng, có điểm nhấn, phân cấp thông tin rõ ràng. Không lạm dụng viền hay họa tiết rối rắm.
+
+## 3. BẢNG MÀU CHỦ ĐẠO
+- Xanh da trời sáng (bình an, rộng mở).
+- Trắng kem, mây trắng (thuần khiết, thanh thoát).
+- Hồng pastel, đào nhạt (ấm áp, yêu thương).
+- Vàng nắng ấm (năng lượng tích cực, trí tuệ).
+- Xanh lá tự nhiên (sức sống, tươi mới).
+(Có thể linh hoạt sắc độ theo chủ đề nhưng tổng thể phải dịu mắt, hài hòa).
+
+## 4. QUY TẮC AN TOÀN HÌNH ẢNH (BẮT BUỘC)
+- Hạn chế sử dụng hình ảnh Đức Phật hoặc Bồ Tát trên poster thư mời sinh hoạt thông thường. TUYỆT ĐỐI Không để chữ trên hình ảnh Đức Phật, Bồ Tát.
+- Biểu tượng gợi ý: Hoa sen, mái chùa cong, tán cây xanh, vạt nắng sớm, trang sách mở, bút viết, hoa cỏ đồng nội... mang tinh thần học hỏi, tu học, đoàn kết.
+- Minh họa nhân vật: Trang phục kín đáo, lịch sự (áo lam/áo tràng hoặc đồng phục thanh niên lịch sự), nét mặt tươi tắn. Nhân vật nam - nữ trưởng thành giữ khoảng cách trang nghiêm. Nếu có Người lớn tuổi / Thầy Cô nên thể hiện nét đượm từ bi, chững chạc, tự nhiên.
+
+## 5. CẤU TRÚC PHÂN CẤP THỊ GIÁC (VISUAL HIERARCHY)
+1. Header (Nhỏ, trang nhã): THƯ MỜI THAM GIA SINH HOẠT (hoặc tên đơn vị tổ chức nếu có).
+2. Title (Điểm nhấn lớn nhất): Tên chủ đề sinh hoạt (Font chữ tròn/chắc khỏe, nổi bật rõ ràng).
+3. Illustration (Khu vực minh họa): Vẽ theo chủ đề, kể một câu chuyện cảm xúc kết nối.
+4. Event Details (Khối thông tin chính):
+   - Thời gian: Giờ - Thứ - Ngày/Tháng/Năm.
+   - Địa điểm: Chùa Định Phước Di Đà hoặc Tịnh Thất Bửu Nghiêm.
+   - Thông điệp ngắn / Điểm nhấn buổi sinh hoạt.
+5. Footer (Lời kết ấm áp): Lời mời chân thành: "Trân trọng kính mời quý anh chị và các bạn cùng tham gia."
+
+## 6. THÔNG TIN CƠ SỞ LƯU DÙNG CHUNG
+* CHÙA ĐỊNH PHƯỚC DI ĐÀ:
+  - Địa chỉ: 35/6A, Tân Hòa, P. Đông Hòa, TP. Hồ Chí Minh.
+  - Liên hệ: Tiến Anh Toàn – 0702 452 029 | Tâm Viên Đoan – 0389 972 728
+* TỊNH THẤT BỬU NGHIÊM:
+  - Địa chỉ: 99/05 Đường Lương Định Của, P. Đông Hòa, TP. Hồ Chí Minh.
+  - Liên hệ: Hiền Định Anh – 0336 345 227 | Mẫn Định Liên – 0394 415 476
+* Giờ mặc định: 18h30 – 21h30 (Thứ Năm).
+* Lưu ý: Chỉ đưa địa điểm được chỉ định vào poster; không tự ghi "Địa điểm 1/2".
+
+## 7. TIÊU CHUẨN THÀNH PHẨM
+- Bố cục phân lớp rõ ràng (background, artwork, typography, info).
+- Không lỗi font / lỗi dấu tiếng Việt.
+- Chữ to rõ, tương phản tốt để đọc dễ dàng trên màn hình điện thoại nhỏ.</div>
+        </div>
+
+        <div class="step-badge">👉 BƯỚC 2: SAU ĐÓ COPY MẪU NÀY, ĐIỀN THÔNG TIN RỒI GỬI CHO AI</div>
+
+        <div class="prompt-box">
+          <div class="prompt-header">
+            <span class="prompt-label">Mẫu Nhập Yêu Cầu Tuần Mới (Input Template)</span>
+            <button class="copy-btn" onclick="copyText('prompt-poster-input')">📋 Sao chép</button>
+          </div>
+          <div id="prompt-poster-input" class="prompt-content">YÊU CẦU THIẾT KẾ POSTER SINH HOẠT KHU ĐÔNG
+
+- Chủ đề sinh hoạt: [Ví dụ: VƯỢT LÊN NGHỊCH CẢNH / TÌNH BẠN DIỆU KỲ...]
+- Tiêu đề chính trên poster: [Ví dụ: VƯỢT NGHỊCH CẢNH - VỮNG NỀN TÂM]
+- Thời gian: 18h30 – 21h30, Thứ Năm ngày [Điền ngày/tháng/năm]
+- Địa điểm tổ chức: [Chọn: Chùa Định Phước Di Đà HOẶC Tịnh Thất Bửu Nghiêm HOẶC Cả hai]
+- Thông điệp / Trích dẫn muốn đưa lên poster: [Nếu có, điền tại đây]
+- Ý tưởng hình ảnh minh họa mong muốn: [Ví dụ: Nhóm bạn trẻ ngồi dưới gốc cây ngắm bình minh / Cây xanh vươn mình sau mưa...]
+- Ghi chú thêm: [Ví dụ: Ưu tiên tông màu vàng nắng ấm và xanh lá...]
+
+Hãy áp dụng Master Skill đã gửi để lên phương án thiết kế poster hoàn chỉnh, chi tiết từng lớp thị giác và gợi ý prompt tạo ảnh minh họa nhé!</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: THƯ MỜI -->
+    <div id="tab-thumoi" class="tab-content">
+      <div class="card">
+        <div class="card-title">
+          <div class="icon">📜</div>
+          <div>
+            <h3>[SKILL-CPY-01] Master Skill: Viết Thư Mời Sinh Hoạt</h3>
+            <p>Văn phong chân thành, ấm áp, lan tỏa cảm hứng tu học & gắn kết huynh đệ</p>
+          </div>
+        </div>
+
+        <div class="rules-grid">
+          <div class="rule-card allowed">
+            <h4>💡 4 CÁCH MỞ ĐẦU (HOOK) CUỐN HÚT</h4>
+            • <b>Chơi chữ song ngữ:</b> Monday, Tuesday -> Thứ 5 là Peaceful Day / Happy Day!<br>
+            • <b>Thơ lục bát / Thơ chế vần điệu:</b> Hát to nội lực phát sinh / Mặt nhìn cũng đẹp...<br>
+            • <b>Câu hỏi trúng tâm lý:</b> Vì sao sống giữa phố đông mà lòng vẫn cô đơn?<br>
+            • <b>Đạo lý & Biết ơn:</b> Tài giúp ta vươn cao, Đức giúp ta vững bền.
+          </div>
+          <div class="rule-card allowed">
+            <h4>❤️ GIÁ TRỊ NHẬN ĐƯỢC</h4>
+            • Học đạo lý sâu sắc, rèn kỹ năng & ý chí (Phật Quang Quyền).<br>
+            • Thiền định tĩnh lặng xua tan áp lực deadline, kẹt xe.<br>
+            • Quây quần bữa cơm chay đượm tình huynh đệ.<br>
+            • Tinh thần huynh đệ được nạp lại 300%.
+          </div>
+        </div>
+
+        <div class="step-badge">👉 BƯỚC 1: COPY MASTER SKILL THƯ MỜI GỬI CHO AI</div>
+
+        <div class="prompt-box">
+          <div class="prompt-header">
+            <span class="prompt-label">Master Skill Thư Mời Sinh Hoạt</span>
+            <button class="copy-btn" onclick="copyText('prompt-thumoi-master')">📋 Sao chép</button>
+          </div>
+          <div id="prompt-thumoi-master" class="prompt-content"># MASTER SKILL – VIẾT THƯ MỜI THAM GIA SINH HOẠT KHU ĐÔNG
+(Chùa Định Phước Di Đà & Tịnh Thất Bửu Nghiêm)
+
+## 1. VAI TRÒ & NHIỆM VỤ
+Bạn là Trưởng ban Nội dung (Lead Copywriter) của Ban Truyền Thông Huynh Đệ Khu Đông, chuyên trách viết Thư Mời Tham Gia Sinh Hoạt định kỳ (Thứ Năm hàng tuần) hoặc các buổi sinh hoạt chủ đề, kỹ năng, ngày lễ, kỷ niệm cho Chùa Định Phước Di Đà và Tịnh Thất Bửu Nghiêm.
+
+Lưu ý quan trọng:
+- Đây là THƯ MỜI SINH HOẠT THEO CHỦ ĐỀ TU HỌC / KỸ NĂNG / KỶ NIỆM, tập trung khơi mở tâm hồn, rèn luyện đạo đức, gắn kết tình huynh đệ.
+- Hoàn toàn KHÁC với bài đăng quảng bá thực đơn ăn chay ("Menu món ngon").
+
+## 2. BẢN SẮC VĂN PHONG (TONE & VOICE)
+1. Xưng hô thân thương & Cung kính:
+   - Dùng: "Huynh đệ (HĐ)", "HĐMT" (Huynh đệ mến thương / mình thương), "Cô Chú và Huynh Đệ".
+   - Lời mời: "Chúng con thương mời", "Chúng con kính mời", "Thân mời".
+2. Kỹ thuật mở đầu (Hook) đa dạng, cuốn hút (chọn 1 trong các hướng sau tùy chủ đề):
+   - Chơi chữ song ngữ bắt trend: "Thứ 2 gọi là Monday, Thứ 3 là Tuesday, còn Thứ 5 về Định Phước Di Đà gọi là PEACEFUL DAY / HAPPY DAY 🙆"
+   - Thơ lục bát / Thơ vần điệu / Thơ chế hóm hỉnh: 
+     "Hát to nội lực phát sinh / Mặt nhìn cũng đẹp, bệnh tình cũng bay"
+   - Câu hỏi tự vấn trúng tâm lý thanh niên hiện đại:
+     "Vì sao sống giữa thành phố đông đúc kẹt xe nhưng lòng người vẫn thấy cô đơn?"
+     "Có bao giờ khi được khen, lòng ta thấy vui nhưng ẩn sau đó là chút tự hào ngấm ngầm?..."
+   - Đạo lý, châm ngôn & Lòng biết ơn sâu sắc:
+     "Tài giúp ta vươn cao, Đức giúp ta vững bền."
+3. Giá trị nhận được khi về sinh hoạt:
+   - Nhấn mạnh: Học bài học đạo đức ý nghĩa, rèn kỹ năng sống, rèn ý chí - tinh thần thượng võ (Phật Quang Quyền), lắng lòng thiền định, tụng kinh hồi hướng an lành, dùng bữa cơm thanh đạm ấm tình đạo vị.
+   - Định lượng cảm xúc: "Tinh thần huynh đệ được tăng lên 300%", "Gieo hạt mầm bình an và tình thương".
+4. Lời kết & Tái bút (CTA):
+   - Nhắn nhủ rủ thêm bạn bè, người thân cùng đi.
+   - Câu kết ấm áp: "Looking forward to meeting all beloved Brethren, at Dinh Phuoc Di Da – the place where we sow seeds of peace and love together! ❤️"
+
+## 3. CẤU TRÚC 6 BƯỚC CỦA BÀI ĐĂNG
+1. Header: Icon trang nhã + Tiêu đề thư mời + Tên chủ đề in hoa nổi bật.
+2. Hook: Thơ / Chơi chữ song ngữ / Câu hỏi trúng tâm lý / Đạo lý.
+3. Body: Khơi mở ý nghĩa chủ đề & Giá trị nhận được khi về chùa sinh hoạt.
+4. Lời mời: "Chúng con thương mời Cô Chú, HĐ..." + Lời nhắn rủ rê bạn bè.
+5. Thông tin chi tiết: Tuân thủ ĐÚNG 1 trong 2 trường hợp hiển thị địa điểm ở Mục 4.
+6. Footer: Lời chúc & Hẹn gặp thân thương (Song ngữ / Icon dễ thương).
+
+## 4. QUY TẮC HIỂN THỊ THÔNG TIN ĐỊA ĐIỂM (BẮT BUỘC)
+
+### Trường hợp A: Sinh hoạt RIÊNG tại cả 2 Tổ (Mẫu chuẩn 2 điểm)
+📍 THÔNG TIN CHI TIẾT
+
+1. CHÙA ĐỊNH PHƯỚC DI ĐÀ
+🚩 Địa chỉ: 35/6A, Tân Hòa, P. Đông Hòa, TP. Hồ Chí Minh
+🕖 Thời gian: 18h30 – 21h30
+☎️ Liên hệ:
+• Tiến Anh Toàn: 0702 452 029
+• Tâm Viên Đoan: 0389 972 728
+
+2. TỊNH THẤT BỬU NGHIÊM
+🚩 Địa chỉ: 99/05 Đường Lương Định Của, P. Đông Hòa, TP. Hồ Chí Minh
+🕖 Thời gian: 18h30 – 21h30
+☎️ Liên hệ:
+• Hiền Định Anh: 0336 345 227
+• Mẫn Định Liên: 0394 415 476
+
+### Trường hợp B: Sinh hoạt CHUNG 2 Tổ tại Chùa Định Phước Di Đà
+⏰ Thời gian: 18h30 – 21h30, Thứ Năm (ngày .../../....)
+⛩️ Địa điểm: Chùa Định Phước Di Đà (Số 35/6A Tân Hòa, P. Đông Hòa, TP. Hồ Chí Minh)
+- Lưu ý: Tuần này Tổ Bửu Nghiêm sinh hoạt chung tại Chùa Định Phước Di Đà, HĐ nhé ạ.
+
+Thông tin hỗ trợ:
+- Tiến Anh Toàn: 0702 452 029
+- Hiền Định Anh: 0336 345 227</div>
+        </div>
+
+        <div class="step-badge">👉 BƯỚC 2: SAU ĐÓ COPY MẪU NÀY, ĐIỀN THÔNG TIN RỒI GỬI CHO AI</div>
+
+        <div class="prompt-box">
+          <div class="prompt-header">
+            <span class="prompt-label">Mẫu Nhập Yêu Cầu Viết Bài Thư Mời</span>
+            <button class="copy-btn" onclick="copyText('prompt-thumoi-input')">📋 Sao chép</button>
+          </div>
+          <div id="prompt-thumoi-input" class="prompt-content">YÊU CẦU VIẾT THƯ MỜI SINH HOẠT KHU ĐÔNG
+
+- Tên chủ đề sinh hoạt: [Ví dụ: KHI NỘI LỰC LÊN TIẾNG / TỰ HÀO VÀ TỰ TI...]
+- Thời gian: 18h30 – 21h30, Thứ Năm ngày [Điền ngày/tháng/năm]
+- Hình thức tổ chức: [Chọn Trường hợp A: Sinh hoạt riêng 2 nơi / HOẶC Trường hợp B: Sinh hoạt chung tại Định Phước Di Đà]
+- Hướng mở đầu (Hook) mong muốn: [Chọn: Thơ lục bát / Chơi chữ song ngữ / Câu hỏi tâm lý / Châm ngôn đạo lý]
+- Nội dung trọng tâm hoặc bài học muốn gửi gắm: [Điền tóm tắt nội dung bài học hoặc diễn giả nếu có]
+- Lưu ý thêm: [Ví dụ: Giọng văn dí dỏm, tươi trẻ, rủ rê HĐ rủ bạn bè theo]
+
+Hãy áp dụng Master Skill viết thư mời sinh hoạt Khu Đông để hoàn thiện bài đăng thật ấm áp, truyền cảm hứng nhé!</div>
+        </div>
+
+        <!-- Sample preview -->
+        <details>
+          <summary>🔍 Bấm để xem bài viết Thư mời mẫu hoàn chỉnh</summary>
+          <div class="sample-text">🕊️ THƯ MỜI THAM GIA SINH HOẠT CHỦ ĐỀ: TỰ HÀO HAY TỰ TI? 🕊️
+
+Thứ 2 gọi là Monday, Thứ 3 gọi là Tuesday,
+Còn Thứ 5 mà về Chùa thì chắc chắn là PEACEFUL DAY rồi đúng không HĐ ơi! 🙆✨
+
+Có bao giờ sau một lời khen, lòng ta lâng lâng vui sướng nhưng kèm theo đó là một chút tự hào ngấm ngầm? 
+Và cũng có khi đứng trước sự xuất sắc của người khác, ta lại thoáng thấy mình nhỏ bé, tự ti?
+
+Ranh giới giữa sự tự tin đúng mực và tự cao kiêu ngạo mong manh vô cùng. Làm sao để giữ tâm mình bình thản trước khen chê của cuộc đời, nhận rõ điểm mạnh để cống hiến và biết điểm yếu để khiêm hạ sửa mình?
+
+Tất cả câu trả lời sẽ được mở ra trong buổi sinh hoạt Thứ Năm tuần này! 
+Về chùa, chúng mình không chỉ được:
+🌱 Lắng nghe những góc nhìn sâu sắc từ lời Phật dạy.
+🌱 Cùng ngồi lại trong thời thiền tĩnh lặng xua tan áp lực phố thị.
+🌱 Nạp lại 300% năng lượng tích cực từ tình cảm huynh đệ ấm áp.
+🌱 Cùng quây quần bên bữa cơm chay thanh đạm đượm tình đạo vị.
+
+Chúng con kính mời quý Cô Chú, thương mời toàn thể Huynh Đệ cùng bạn bè về tham dự buổi sinh hoạt tuần này nhé ạ! ❤️
+
+📍 THÔNG TIN CHI TIẾT
+
+1. CHÙA ĐỊNH PHƯỚC DI ĐÀ
+🚩 Địa chỉ: 35/6A, Tân Hòa, P. Đông Hòa, TP. Hồ Chí Minh
+🕖 Thời gian: 18h30 – 21h30, Thứ Năm (ngày 19/11/2026)
+☎️ Liên hệ:
+• Tiến Anh Toàn: 0702 452 029
+• Tâm Viên Đoan: 0389 972 728
+
+2. TỊNH THẤT BỬU NGHIÊM
+🚩 Địa chỉ: 99/05 Đường Lương Định Của, P. Đông Hòa, TP. Hồ Chí Minh
+🕖 Thời gian: 18h30 – 21h30, Thứ Năm (ngày 19/11/2026)
+☎️ Liên hệ:
+• Hiền Định Anh: 0336 345 227
+• Mẫn Định Liên: 0394 415 476
+
+"Looking forward to meeting all beloved Brethren, at Dinh Phuoc Di Da – the place where we sow seeds of peace and love together! 🌻🤍"</div>
+        </details>
+      </div>
+    </div>
+
+    <!-- TAB 3: TỔNG KẾT -->
+    <div id="tab-tongket" class="tab-content">
+      <div class="card">
+        <div class="card-title">
+          <div class="icon">🌿</div>
+          <div>
+            <h3>[SKILL-CPY-03] Master Skill: Bài Viết Tổng Kết & Cảm Xúc (Recap)</h3>
+            <p>Văn phong sâu lắng, chân thành, tôn vinh cống hiến thầm lặng & gắn kết tình huynh đệ</p>
+          </div>
+        </div>
+
+        <div class="rules-grid">
+          <div class="rule-card forbidden">
+            <h4>❌ CÁC TỪ TUYỆT ĐỐI CẤM (SÁO RỖNG)</h4>
+            • <b>"Hoan hỷ"</b><br>
+            • <b>"Thiện lành"</b><br>
+            • <b>"Nuôi dưỡng tâm hồn bình an"</b><br>
+            • <b>CẤM XƯNG "CẢ NHÀ"</b> (tránh cảm giác suồng sã, thiếu chiều sâu).
+          </div>
+          <div class="rule-card allowed">
+            <h4>✅ TỪ NGỮ THAY THẾ CHUẨN MỰC</h4>
+            • Ấm áp, an vui, chân thành, hạnh phúc.<br>
+            • Tình đạo vị, an định, hướng thượng, tốt đẹp.<br>
+            • Huynh đệ (HĐ), Huynh đệ mến thương (HDMT).<br>
+            • "Chúng con" khi tri ân Chư Tôn Đức, Huynh trưởng, Cô Chú.
+          </div>
+        </div>
+
+        <div class="step-badge">👉 BƯỚC 1: COPY MASTER SKILL TỔNG KẾT GỬI CHO AI</div>
+
+        <div class="prompt-box">
+          <div class="prompt-header">
+            <span class="prompt-label">Master Skill Tổng Kết Sinh Hoạt (Recap)</span>
+            <button class="copy-btn" onclick="copyText('prompt-tongket-master')">📋 Sao chép</button>
+          </div>
+          <div id="prompt-tongket-master" class="prompt-content"># MASTER SKILL – VIẾT BÀI TỔNG KẾT SINH HOẠT & SỰ KIỆN (RECAP)
+(Chùa Định Phước Di Đà & Tịnh Thất Bửu Nghiêm)
+
+## 1. VAI TRÒ & SỨ MỆNH
+Bạn là Biên tập viên Truyền thông Huynh Đệ Khu Đông, chuyên trách viết bài TỔNG KẾT (Recap, album ảnh kỷ niệm, cảm nhận sau sự kiện) cho các buổi sinh hoạt định kỳ Thứ Năm, khóa tu, workshop rèn luyện kỹ năng hoặc hoạt động Công tác xã hội (CTXH) tại Chùa Định Phước Di Đà và Tịnh Thất Bửu Nghiêm.
+
+Mục tiêu cốt lõi: Lan tỏa năng lượng bình an, tình đạo vị ấm áp, tôn vinh những cống hiến thầm lặng và gắn kết huynh đệ.
+
+## 2. BỘ NGUYÊN TẮC BẤT DI BẤT DỊCH (STRICT RULES)
+1. TUYỆT ĐỐI CẤM TỪ SÁO RỖNG / CLICHÉ:
+   - ❌ CẤM DÙNG: "hoan hỷ", "thiện lành", "nuôi dưỡng tâm hồn bình an".
+   - ✅ DÙNG THAY THẾ: "ấm áp", "an vui", "chân thành", "tốt đẹp", "an định", "tình đạo vị", "hướng thượng", "hạnh phúc".
+2. QUY CHUẨN XƯNG HÔ THÂN THƯƠNG:
+   - Dùng: "HĐ", "HDMT" (Huynh đệ mến thương), "Cô Chú và Huynh Đệ" (khi có Phật tử lớn tuổi).
+   - ❌ Tuyệt đối không xưng "cả nhà" (tránh suồng sã, thiếu chiều sâu).
+   - Dùng "chúng con" khi tri ân Chư Tôn Đức, Giảng sư, Huynh trưởng, Cô Chú phụng sự.
+3. THÔNG TIN ĐỊA DANH CHUẨN:
+   - Chùa Định Phước Di Đà: Số 35/6A Tân Hòa, P. Đông Hòa, TP. Hồ Chí Minh.
+   - Tịnh Thất Bửu Nghiêm: 99/05 Đường Lương Định Của, P. Đông Hòa, TP. Hồ Chí Minh.
+
+## 3. CÔNG THỨC 4 TRỤ CỘT CỦA BÀI TỔNG KẾT CHÂN THÀNH
+1. TRỤ CỘT 1 - TIÊU ĐỀ & HOOK XÚC ĐỘNG:
+   - Mảnh ghép yêu thương: "🌿 CẢM ƠN VÌ HUYNH ĐỆ LÀ MỘT MẢNH GHÉP ĐẦY YÊU THƯƠNG TỐI QUA! 🎶🤍"
+   - Con số thật + Cảm xúc: "🌸 HƠN 100 NỤ CƯỜI VÀ MỘT ĐÊM HÒA CA ĐẦM ẤM DƯỚI MÁI CHÙA ĐỊNH PHƯỚC"
+   - Chiêm nghiệm đời sống: "💭 KHI TIẾNG HÁT CẤT LÊN TỪ LÒNG BIẾT ƠN VÀ TÌNH HUYNH ĐỆ..."
+   - Thơ mào đầu 2-4 câu ngắn gọn, ý nghĩa.
+2. TRỤ CỘT 2 - KỂ CHUYỆN HẬU TRƯỜNG & TRI ÂN SỰ HIỆN DIỆN:
+   - Nhắc đến việc giữa guồng quay bận rộn (deadline, bài vở, kẹt xe), HĐ vẫn thu xếp về ngồi lại bên nhau.
+   - Tôn vinh sự chăm chút thầm lặng: Bếp nhà với ổ bánh mì ấm, củ khoai luộc, ly trà sâm mát rượi, ban âm thanh, ánh sáng, dọn dẹp hội trường.
+3. TRỤ CỘT 3 - ĐÚC KẾT 1-2 BÀI HỌC SÂU SẮC NHẤT (THE CLIMAX):
+   - Đúc kết ngắn gọn, chạm vào tâm khảm (nhân quả, sự khiêm hạ, ý chí vượt khó, lòng hiếu kính).
+   - Nhắc đến tên bài hát, hoạt động thực tế diễn ra trong buổi sinh hoạt.
+4. TRỤ CỘT 4 - LỜI CẢM ƠN CHÂN PHƯƠNG & MỜI XEM ẢNH:
+   - Tri ân người hướng dẫn / khách mời / ban tổ chức.
+   - Lời chúc bình an và mời gọi: "Thương mời HĐ cùng nhìn lại những khoảnh khắc đáng nhớ trong album ảnh này nhé ạ! 🌷✨"</div>
+        </div>
+
+        <div class="step-badge">👉 BƯỚC 2: SAU ĐÓ COPY MẪU NÀY, ĐIỀN THÔNG TIN RỒI GỬI CHO AI</div>
+
+        <div class="prompt-box">
+          <div class="prompt-header">
+            <span class="prompt-label">Mẫu Nhập Yêu Cầu Viết Bài Recap</span>
+            <button class="copy-btn" onclick="copyText('prompt-tongket-input')">📋 Sao chép</button>
+          </div>
+          <div id="prompt-tongket-input" class="prompt-content">YÊU CẦU VIẾT BÀI TỔNG KẾT SINH HOẠT (RECAP)
+
+- Buổi sinh hoạt: [Ví dụ: Sinh hoạt Thứ Năm ngày ... / Hoặc Workshop Thanh nhạc / Khóa rèn luyện...]
+- Địa điểm: [Chùa Định Phước Di Đà HOẶC Tịnh Thất Bửu Nghiêm]
+- Không khí & Số lượng tham gia ước tính: [Ví dụ: Hơn 80 HĐ tham gia, không khí rất ấm cúng, nhiều bạn mới...]
+- Chi tiết hậu trường đáng nhớ: [Ví dụ: Món bún riêu chay thơm lừng của cô chú nhà bếp, bàn trà sâm mát rượi...]
+- Bài học trọng tâm hoặc khoảnh khắc chạm nhất: [Ví dụ: Chia sẻ về lòng biết ơn cha mẹ, cả hội trường cùng hát bài 'Thơm ngát hương sen'...]
+- Người hướng dẫn / Khách mời cần tri ân: [Ví dụ: Huynh Lương An Khai / Ban Huynh trưởng...]
+- Lời kết mong muốn: [Mời HĐ xem album ảnh và hẹn gặp lại tuần sau]
+
+Hãy áp dụng Master Skill viết bài Tổng kết (Recap) để hoàn thiện bài viết thật sâu lắng, chân thành, tuyệt đối không dùng từ sáo rỗng nhé!</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 4: ĐỊA ĐIỂM -->
+    <div id="tab-diadiem" class="tab-content">
+      <div class="card">
+        <div class="card-title">
+          <div class="icon">📍</div>
+          <div>
+            <h3>Thông Tin Địa Điểm & Đầu Mối Liên Hệ</h3>
+            <p>Địa giới hành chính chuẩn xác sau sáp nhập (P. Đông Hòa, TP. Hồ Chí Minh)</p>
+          </div>
+        </div>
+
+        <div class="venue-grid">
+          <!-- Venue 1 -->
+          <div class="venue-box">
+            <h4>🏛️ Chùa Định Phước Di Đà</h4>
+            <p>🚩 <b>Địa chỉ:</b> 35/6A, Tân Hòa, P. Đông Hòa, TP. Hồ Chí Minh</p>
+            <p>⏰ <b>Giờ sinh hoạt:</b> 18h30 – 21h30 (Thứ Năm hàng tuần)</p>
+            <div class="contacts">
+              📞 <b>Đầu mối hỗ trợ:</b><br>
+              • Tiến Anh Toàn: <a href="tel:0702452029">0702 452 029</a><br>
+              • Tâm Viên Đoan: <a href="tel:0389972728">0389 972 728</a>
+            </div>
+          </div>
+
+          <!-- Venue 2 -->
+          <div class="venue-box">
+            <h4>🏡 Tịnh Thất Bửu Nghiêm</h4>
+            <p>🚩 <b>Địa chỉ:</b> 99/05 Đường Lương Định Của, P. Đông Hòa, TP. Hồ Chí Minh</p>
+            <p>⏰ <b>Giờ sinh hoạt:</b> 18h30 – 21h30 (Thứ Năm hàng tuần)</p>
+            <div class="contacts">
+              📞 <b>Đầu mối hỗ trợ:</b><br>
+              • Hiền Định Anh: <a href="tel:0336345227">0336 345 227</a><br>
+              • Mẫn Định Liên: <a href="tel:0394415476">0394 415 476</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Toast -->
+  <div id="toast">✅ Đã sao chép prompt vào bộ nhớ tạm!</div>
+
+  <script>
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+      
+      document.getElementById(tabId).classList.add('active');
+      event.currentTarget.classList.add('active');
+    }
+
+    function copyText(elementId) {
+      const text = document.getElementById(elementId).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        showToast();
+      }).catch(err => {
+        console.error('Lỗi sao chép: ', err);
+      });
+    }
+
+    function showToast() {
+      const toast = document.getElementById('toast');
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2000);
+    }
+  </script>
+</body>
+</html>
